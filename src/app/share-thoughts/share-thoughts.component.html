@@ -1,0 +1,15 @@
+<h1 class="center">My Thoughts</h1>
+<div class="center">
+    <form [formGroup]="form">
+        <div>
+            <mat-form-field appearance="fill" appearance="outline" class="full-width">
+                <textarea matInput rows="10" placeholder="Type here" formControlName="thoughts"></textarea>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-stroked-button style="border: 2px solid;" (click)="clearThoughts()">Clear</button>
+            <span style="margin: 10px;"></span>
+            <button type="submit" mat-stroked-button style="border: 2px solid;">Share</button>
+        </div>
+    </form>
+</div>
