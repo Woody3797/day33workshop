@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, inject } from '@angular/core';
+import { Component, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 
@@ -11,6 +11,8 @@ export class ShareThoughtsComponent implements OnInit {
     
     form!: FormGroup
     fb: FormBuilder = inject(FormBuilder)
+
+    @Input()
     canShare = false
 
     @Output()
@@ -22,18 +24,14 @@ export class ShareThoughtsComponent implements OnInit {
         this.canShare = !!navigator.canShare()
     }
 
-    share(text: string) {
-        const data: any = {
-            title: 'share a tot',
-            text,
-            url: 'www.google.com'
-        }
-        navigator.share(data).then(result => alert('shared')).catch(err => alert(JSON.stringify(err)))
+    share() {
+        const data = this.form.value['thoughts']
+        this.onShareThoughts.next(data)
     }
 
     private createForm(): FormGroup {
         return this.fb.group({
-            thoughts: this.fb.control<string>('', [Validators.required, Validators.minLength(3)])
+            thoughts: this.fb.control('', [Validators.required, Validators.minLength(3)])
         })
     }
 
